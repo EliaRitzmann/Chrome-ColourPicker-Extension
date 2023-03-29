@@ -1,6 +1,32 @@
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Chrome Extension</title>
+    <link rel="stylesheet" href="gui.css" />
+  </head>
   <body>
-    <h1>Hello Extensions</h1>
+    <div class="container">
+      <h1 class="title">Background colour changer</h1>
+      <p class="description">Current Website:</p>
+      <p class="description">Lorem, ipsum.</p>
+
+      <div id="color-picker">
+        <canvas id="color-strip" height="400" width="30"></canvas>
+        <canvas id="color-block" height="400" width="316"></canvas>
+        <div class="info">
+          <label  id="color-label" style="background-color: red"></label> 
+          <h3>test</h3>
+        </div>
+      </div>
+    </div>
+
+    
+
+    
+
+     
   </body>
-  
+
+  <script src="gui.js">
+  </script>
 </html>
