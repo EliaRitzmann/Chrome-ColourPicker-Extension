@@ -2,9 +2,23 @@
     "manifest_version": 3,
     "name": "Background Color picker",
     "description": "Mit dieser Extension ist es möglich, die Hintergrundfarbe der Aktuellen Webseite zu verändert.",
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "tabs"
+    ],
     "version": "0.1",
     "action": {
       "default_popup": "gui.html",
       "default_icon": "icon.png"
-    }
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["contentScript.js"]
+      }
+    ]
   }
