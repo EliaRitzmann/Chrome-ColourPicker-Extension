@@ -10,6 +10,10 @@ var height2 = colorStrip.height;
 
 var colorLabel = document.getElementById("color-label");
 
+var redText = document.getElementById("redText")
+var greenText = document.getElementById("greenText")
+var blueText = document.getElementById("blueText")
+
 var x = 0;
 var y = 0;
 var drag = false;
@@ -90,9 +94,17 @@ function changeColor(e) {
   x = e.offsetX;
   y = e.offsetY;
   var imageData = ctx1.getImageData(x, y, 1, 1).data;
+  setColor(imageData[0], imageData[1], imageData[2])
+}
+
+function setColor(red, green, blue){
   rgbaColor =
-    "rgba(" + imageData[0] + "," + imageData[1] + "," + imageData[2] + ",1)";
+    "rgba(" + red + "," + green + "," + blue + ",1)";
   colorLabel.style.backgroundColor = rgbaColor;
+
+  redText.value = red
+  greenText.value = green
+  blueText.value = blue
 }
 
 colorStrip.addEventListener("click", click, false);
@@ -100,3 +112,8 @@ colorStrip.addEventListener("click", click, false);
 colorBlock.addEventListener("mousedown", mousedown, false);
 colorBlock.addEventListener("mouseup", mouseup, false);
 colorBlock.addEventListener("mousemove", mousemove, false);
+
+redText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
+greenText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
+blueText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
+

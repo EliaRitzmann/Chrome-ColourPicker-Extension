@@ -34,7 +34,34 @@ h2 {
 
 .info {
   display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  width: 30px;
+}
+
+.buttonContainer {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.button {
+  background-color: white; /* Green */
+  border: none;
+  color: black;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #color-label {
