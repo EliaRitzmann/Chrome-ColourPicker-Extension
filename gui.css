@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 600px;
+  background-color: darkslategray;
+  color: white;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.description {
+  font-size: 1rem;
+  margin-bottom: -20px;
+}
+h2 {
+  background-color: #dbdbdb;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-family: "Open Sans";
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  width: 30px;
+}
+
+.buttonContainer {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.button {
+  background-color: white; /* Green */
+  border: none;
+  color: black;
+  padding: 1px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#color-label {
+  display: block;
+  height: 30;
+  width: 30;
+}
+
+#color-picker {
+  margin-top: 30px;
+  background-color: black;
+  height: 450px;
+  width: 350px;
+  border-style: solid;
+  border-color: black;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+canvas:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" stroke="black" stroke-width="1" fill-opacity="0"/></svg>')
+      8 8,
+    auto;
+}
