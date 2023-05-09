@@ -22,18 +22,18 @@ var rgbaColor = "rgba(255,0,0,1)";
 ctx1.rect(0, 0, width1, height1);
 fillGradient();
 
-function drawStrip(){
-    ctx2.rect(0, 0, width2, height2);
-    var grd1 = ctx2.createLinearGradient(0, 0, 0, height1);
-    grd1.addColorStop(0, "rgba(255, 0, 0, 1)");
-    grd1.addColorStop(0.17, "rgba(255, 255, 0, 1)");
-    grd1.addColorStop(0.34, "rgba(0, 255, 0, 1)");
-    grd1.addColorStop(0.51, "rgba(0, 255, 255, 1)");
-    grd1.addColorStop(0.68, "rgba(0, 0, 255, 1)");
-    grd1.addColorStop(0.85, "rgba(255, 0, 255, 1)");
-    grd1.addColorStop(1, "rgba(255, 0, 0, 1)");
-    ctx2.fillStyle = grd1;
-    ctx2.fill();
+function drawStrip() {
+  ctx2.rect(0, 0, width2, height2);
+  var grd1 = ctx2.createLinearGradient(0, 0, 0, height1);
+  grd1.addColorStop(0, "rgba(255, 0, 0, 1)");
+  grd1.addColorStop(0.17, "rgba(255, 255, 0, 1)");
+  grd1.addColorStop(0.34, "rgba(0, 255, 0, 1)");
+  grd1.addColorStop(0.51, "rgba(0, 255, 255, 1)");
+  grd1.addColorStop(0.68, "rgba(0, 0, 255, 1)");
+  grd1.addColorStop(0.85, "rgba(255, 0, 255, 1)");
+  grd1.addColorStop(1, "rgba(255, 0, 0, 1)");
+  ctx2.fillStyle = grd1;
+  ctx2.fill();
 }
 
 drawStrip()
@@ -97,7 +97,7 @@ function changeColor(e) {
   setColor(imageData[0], imageData[1], imageData[2])
 }
 
-function setColor(red, green, blue){
+function setColor(red, green, blue) {
   rgbaColor =
     "rgba(" + red + "," + green + "," + blue + ",1)";
   colorLabel.style.backgroundColor = rgbaColor;
@@ -117,3 +117,86 @@ redText.addEventListener("change", () => setColor(redText.value, greenText.value
 greenText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
 blueText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
 
+
+
+// Code for Color Saving, Loading etc.
+
+
+// const h2 = document.getElementById("h2url");
+// const setColorButton = document.getElementById("setColorButton");
+// const getColorButton = document.getElementById("getColorButton");
+// let url;
+
+// // Fetch URL from Current Chrome Tab
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//     url = tabs[0].url;
+//     h2.innerHTML = url;
+//     getColorClick();
+// });
+
+// // Get Color From Chrome Storage
+// function getColorClick() {
+//     chrome.storage.sync.get(url, function(data) {
+//         const color = data[url];
+//         console.log("Color: ", color);
+//         setBackground(url, color);
+//     });
+// }
+
+// // Set Color in Chrome Storage
+// function saveColorClick() {
+//     console.log("Button Content", h2.innerHTML);
+//     chrome.storage.sync.set({[url]: "#ffffff"});
+//     setBackground(url ,'#ffffff');
+// }
+
+// function setBackground(url, color) {
+
+// }
+
+// setColorButton.addEventListener("click", saveColorClick);
+// getColorButton.addEventListener("click", getColorClick);
+
+const h2 = document.getElementById("h2url")
+const setColorButton = document.getElementById("setColorButton")
+const getColorButton = document.getElementById("getColorButton")
+let url
+
+// Fetch URL from Current Chrome Tab
+chrome.runtime.sendMessage({ action: "getCurrentUrl" }, (response) => {
+  console.log(response);
+  h2.innerHTML = response.url
+  url = response.url
+})
+
+// Get Color From Chrome Storage
+function getColorClick() {
+  chrome.runtime.sendMessage({ action: "getColor", url: url }, (response) => {
+    const color = response.color
+    if (color != null){
+      console.log("in get Color function -> gui.js")
+      console.log("Color: ", color)
+
+      // setBackground(color)
+    }
+  })
+}
+
+// Set Color in Chrome Storage
+function saveColorClick() {
+  console.log("Button Content", h2.innerHTML)
+  chrome.runtime.sendMessage({ action: "saveColor", url: url, color: rgbaColor })
+
+  console.log("in save color function -> gui.js")
+  console.log("Color: ", rgbaColor)
+
+  // setBackground(rgbaColor)
+}
+
+function setBackground(color) {
+  chrome.runtime.sendMessage({ action: "setBackground", url: url, color: color })
+  console.log("in set background -> gui.js")
+}
+
+setColorButton.addEventListener("click", saveColorClick)
+getColorButton.addEventListener("click", getColorClick)

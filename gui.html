@@ -5,19 +5,10 @@
     <link rel="stylesheet" href="gui.css" />
   </head>
   <body>
-    <h1>Hello Extensions</h1>
-
-    <h2 id="h2url"></h2>
-
-    <button id="setColorButton">Set Color</button>
-    <button id="getColorButton">Get Color</button>
-  
-    <script src="contentScript.js"></script>
-  
     <div class="container">
       <h1 class="title">Background colour changer</h1>
       <p class="description">Current Website:</p>
-      <p class="description">Lorem, ipsum.</p>
+      <p id="h2url" class="description">Lorem, ipsum.</p>
 
       <div id="color-picker">
         <canvas id="color-strip" height="400" width="30"></canvas>
@@ -33,8 +24,8 @@
             <input type="text" id="blueText" class="input" />
           </div>
           <div class="buttonContainer">
-            <button id="setButton" class="button">set Background</button>
-            <button id="saveButton" class="button">save colour</button>
+            <button id="getColorButton" class="button">set Background</button>
+            <button id="setColorButton" class="button">save colour</button>
           </div>
         </div>
       </div>
