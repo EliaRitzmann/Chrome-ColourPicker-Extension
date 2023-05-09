@@ -10,9 +10,9 @@ var height2 = colorStrip.height;
 
 var colorLabel = document.getElementById("color-label");
 
-var redText = document.getElementById("redText")
-var greenText = document.getElementById("greenText")
-var blueText = document.getElementById("blueText")
+var redText = document.getElementById("redText");
+var greenText = document.getElementById("greenText");
+var blueText = document.getElementById("blueText");
 
 var x = 0;
 var y = 0;
@@ -36,7 +36,7 @@ function drawStrip() {
   ctx2.fill();
 }
 
-drawStrip()
+drawStrip();
 
 function click(e) {
   x = e.offsetX;
@@ -44,8 +44,7 @@ function click(e) {
 
   ctx2.clearRect(0, 0, colorStrip.width, colorStrip.height);
 
-  drawStrip()
-
+  drawStrip();
 
   ctx2.beginPath();
   ctx2.moveTo(0, y);
@@ -94,17 +93,17 @@ function changeColor(e) {
   x = e.offsetX;
   y = e.offsetY;
   var imageData = ctx1.getImageData(x, y, 1, 1).data;
-  setColor(imageData[0], imageData[1], imageData[2])
+  setColor(imageData[0], imageData[1], imageData[2]);
 }
 
 function setColor(red, green, blue) {
-  rgbaColor =
-    "rgba(" + red + "," + green + "," + blue + ",1)";
+  rgbaColor = "rgba(" + red + "," + green + "," + blue + ",1)";
   colorLabel.style.backgroundColor = rgbaColor;
 
-  redText.value = red
-  greenText.value = green
-  blueText.value = blue
+  redText.value = red;
+  greenText.value = green;
+  blueText.value = blue;
+
 }
 
 colorStrip.addEventListener("click", click, false);
@@ -113,14 +112,17 @@ colorBlock.addEventListener("mousedown", mousedown, false);
 colorBlock.addEventListener("mouseup", mouseup, false);
 colorBlock.addEventListener("mousemove", mousemove, false);
 
-redText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
-greenText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
-blueText.addEventListener("change", () => setColor(redText.value, greenText.value, blueText.value))
-
-
+redText.addEventListener("change", () =>
+  setColor(redText.value, greenText.value, blueText.value)
+);
+greenText.addEventListener("change", () =>
+  setColor(redText.value, greenText.value, blueText.value)
+);
+blueText.addEventListener("change", () =>
+  setColor(redText.value, greenText.value, blueText.value)
+);
 
 // Code for Color Saving, Loading etc.
-
 
 // const h2 = document.getElementById("h2url");
 // const setColorButton = document.getElementById("setColorButton");
@@ -157,46 +159,56 @@ blueText.addEventListener("change", () => setColor(redText.value, greenText.valu
 // setColorButton.addEventListener("click", saveColorClick);
 // getColorButton.addEventListener("click", getColorClick);
 
-const h2 = document.getElementById("h2url")
-const setColorButton = document.getElementById("setColorButton")
-const getColorButton = document.getElementById("getColorButton")
-let url
+const h2 = document.getElementById("h2url");
+const setColorButton = document.getElementById("setColorButton");
+const getColorButton = document.getElementById("getColorButton");
+let url;
 
 // Fetch URL from Current Chrome Tab
 chrome.runtime.sendMessage({ action: "getCurrentUrl" }, (response) => {
   console.log(response);
-  h2.innerHTML = response.url
-  url = response.url
-})
+  h2.innerHTML = response.url;
+  url = response.url;
+});
 
 // Get Color From Chrome Storage
 function getColorClick() {
+  document.body.style.backgroundColor = rgbaColor;
+
   chrome.runtime.sendMessage({ action: "getColor", url: url }, (response) => {
-    const color = response.color
-    if (color != null){
-      console.log("in get Color function -> gui.js")
-      console.log("Color: ", color)
+    const color = response.color;
+    if (color != null) {
+      console.log("in get Color function -> gui.js");
+      console.log("Color: ", color);
 
       // setBackground(color)
     }
-  })
+  });
 }
 
 // Set Color in Chrome Storage
 function saveColorClick() {
-  console.log("Button Content", h2.innerHTML)
-  chrome.runtime.sendMessage({ action: "saveColor", url: url, color: rgbaColor })
+  console.log("Button Content", h2.innerHTML);
+  chrome.runtime.sendMessage({
+    action: "saveColor",
+    url: url,
+    color: rgbaColor,
+  });
 
-  console.log("in save color function -> gui.js")
-  console.log("Color: ", rgbaColor)
+  console.log("in save color function -> gui.js");
+  console.log("Color: ", rgbaColor);
 
   // setBackground(rgbaColor)
 }
 
 function setBackground(color) {
-  chrome.runtime.sendMessage({ action: "setBackground", url: url, color: color })
-  console.log("in set background -> gui.js")
+  chrome.runtime.sendMessage({
+    action: "setBackground",
+    url: url,
+    color: color,
+  });
+  console.log("in set background -> gui.js");
 }
 
-setColorButton.addEventListener("click", saveColorClick)
-getColorButton.addEventListener("click", getColorClick)
+setColorButton.addEventListener("click", saveColorClick);
+getColorButton.addEventListener("click", getColorClick);
